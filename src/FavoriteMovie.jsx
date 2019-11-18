@@ -13,14 +13,14 @@ class FavoriteMovie extends Component {
   }
   onChange(e) {
     this.setState({
-      [e.target.title] : e.target.value
+      [e.target.title]: e.target.value
     });
   }
 
   submitForm(e) {
     e.preventDefault();
 
-    const url="https://post-a-form.herokuapp.com/api/movies/";
+    const url = "https://post-a-form.herokuapp.com/api/movies/";
     const config = {
       method: "POST",
       headers: {
@@ -48,8 +48,10 @@ class FavoriteMovie extends Component {
   render() {
     return (
       <div className="favoriteMovie">
+        <h1>Enter a movie</h1>
         <form onSubmit={this.submitForm}>
           <fieldset>
+
             <div className="form-data">
               <label htmlFor="title"> Movie Name </label>
                 <input
@@ -60,6 +62,7 @@ class FavoriteMovie extends Component {
                 value={this.state.title} 
                 />
             </div>
+
             <div className="form-data">
               <label htmlFor="poster"> Poster </label>
                 <input
@@ -69,7 +72,8 @@ class FavoriteMovie extends Component {
                 onChange={this.onChange}
                 value={this.state.poster} 
                 />
-            </div >
+            </div>
+
             <div className="form-data">
               <label label htmlFor="comment"> Comment </label>
                 <input
@@ -81,7 +85,7 @@ class FavoriteMovie extends Component {
                 />
             </div>
             <div className="form-data">
-              <input type="submit" value="send"></input>
+              <input type="submit" value="send" />
             </div>
           </fieldset>
         </form>
