@@ -4,7 +4,7 @@ class FavoriteMovie extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      movieName : '',
+      title : '',
       poster: '',
       comment: ''
   };
@@ -13,12 +13,36 @@ class FavoriteMovie extends Component {
   }
   onChange(e) {
     this.setState({
-      [e.target.movieName] : e.target.value
+      [e.target.title] : e.target.value
     });
   }
 
   submitForm(e) {
     e.preventDefault();
+
+    const url="https://post-a-form.herokuapp.com/api/movies/";
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(this.state),
+    };
+
+    fetch(url, config) 
+    .then(res => res.json())
+    .then(res => {
+    if (res.error) {
+      alert(res.error);
+    } else {
+      alert(`New movie added with Id ${res}!`);
+    }
+  }).catch(e => {
+    console.error(e);
+    alert('Error when adding a movie');
+  });
+
+    
   }
 
   render() {
@@ -27,18 +51,17 @@ class FavoriteMovie extends Component {
         <form onSubmit={this.submitForm}>
           <fieldset>
             <div className="form-data">
-              <label htmlFor="movieName">
+              <label htmlFor="title"> Movie Name </label>
                 <input
                 type="text"
-                id="movieName"
-                name="movieName"
+                id="title"
+                name="title"
                 onChange={this.onChange}
-                value={this.state.movieName} 
+                value={this.state.title} 
                 />
-              </label>
             </div>
             <div className="form-data">
-              <label htmlFor="comment">
+              <label htmlFor="poster"> Poster </label>
                 <input
                 type="text"
                 id="poster"
@@ -46,10 +69,9 @@ class FavoriteMovie extends Component {
                 onChange={this.onChange}
                 value={this.state.poster} 
                 />
-              </label>
             </div >
             <div className="form-data">
-              <label label htmlFor="comment">
+              <label label htmlFor="comment"> Comment </label>
                 <input
                 type="textarea"
                 id="comment"
@@ -57,7 +79,6 @@ class FavoriteMovie extends Component {
                 onChange={this.onChange}
                 value={this.state.comment} 
                 />
-              </label>
             </div>
             <div className="form-data">
               <input type="submit" value="send"></input>
