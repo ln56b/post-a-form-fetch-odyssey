@@ -13,7 +13,7 @@ class FavoriteMovie extends Component {
   }
   onChange(e) {
     this.setState({
-      [e.target.title]: e.target.value
+      [e.target.name]: e.target.value
     });
   }
 
